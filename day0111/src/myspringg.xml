@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- <bean id="ltv" class="com.sds.LTV" scope="prototype">
+	scope:singletone 한번만듦, prototype: 미리만들지않고 호출할때마다 만들어지며, 동일한객체X
+		<property name="size" value="75"></property>
+		<property name="speaker" ref="sp"></property>
+	</bean> -->
+	
+	<bean id="ltv" class="com.sds.LTV" scope="prototype" p:size="75" p:speaker-ref="sp">
+	</bean>
+	
+	<bean name="stv" class="com.sds.STV" lazy-init="true">
+	<!-- lazy-init : 객체가 미리 만들어지지않고, 호출할때 만들어진다 -->
+		<!-- STV는 Speaker가 필요해서 맵핑 해줘야함  STV에 sp만 들어가는 컨스트럭터-->
+		<constructor-arg index="1" ref="sp"></constructor-arg>
+		<constructor-arg index="0" value="65"></constructor-arg>
+	</bean>
+	
+	<bean id="sp" class="com.sds.Speaker"></bean>
+
+</beans>
